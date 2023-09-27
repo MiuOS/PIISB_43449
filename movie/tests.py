@@ -4,13 +4,11 @@ from .models import Movie, Director, Actor  # adjust the import as per your proj
 class MovieCreationTest(TestCase):
 
     def setUp(self):
-        # Create a director for the movie
         self.director = Director.objects.create(
             name='Jane Doe',
             bio='A renowned director.'
         )
         
-        # Create an actor for the movie
         self.actor = Actor.objects.create(
             name='John Doe',
             bio='An experienced actor.'
@@ -25,16 +23,12 @@ class MovieCreationTest(TestCase):
             avg_rating=5.0
         )
         
-        # Adding an actor to the movie
         movie.actors.add(self.actor)
         
         self.assertEqual(Movie.objects.count(), 1)
         self.assertEqual(movie.title, 'Test Movie')
         self.assertIn(self.actor, movie.actors.all())
         self.assertEqual(movie.director, self.director)
-
-from django.test import TestCase
-from .models import Movie, Director, Actor  # adjust the import as per your project structure
 
 class GetTest(TestCase):
 
@@ -62,4 +56,4 @@ class GetTest(TestCase):
     def test_get_movie_by_title(self):
         retrieved_movie = Movie.objects.get(title=self.movie_title)
         self.assertEqual(retrieved_movie.title, self.movie_title)
-        self.assertEqual(retrieved_movie, self.movie)  # additionally, you can check if the retrieved movie is the same as the created one
+        self.assertEqual(retrieved_movie, self.movie)
